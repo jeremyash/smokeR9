@@ -231,7 +231,7 @@ bsky_col <- read_csv("../raw_data/bsky_gray_color_ramp.csv",
 ##-------------
 
 # smoke outlook directory
-outlook_smoke <- paste("../outlook/",
+outlook_smoke <- paste("../outlooks/",
                   params$OUTLOOK_PATH,
                   "/",
                   params$MODEL_RUN, sep = "")

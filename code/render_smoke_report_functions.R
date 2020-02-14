@@ -167,7 +167,7 @@ render_smoke_report <- function(outlook_path, burn_name, contact_info, burn_date
   
   # create html output
   render(input = "code/smoke_template_drop_level.Rmd",
-         output_dir = paste("outlooks/", md_path, "/", model_run, sep = ""),
+         output_dir = paste("outlooks/", outlook_path, "/", model_run, sep = ""),
          output_file = paste(yearmonday,
                              "_",
                              smoke_report_title, ".html", sep = ""), 
