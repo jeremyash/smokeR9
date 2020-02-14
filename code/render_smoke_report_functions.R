@@ -36,7 +36,7 @@ library(grid)
 create_md_dir <- function(YYYY_FOREST_BURN) {
   
   # primary directory
-  proj <- paste("md/", YYYY_FOREST_BURN, sep = "")
+  proj <- paste("outlooks/", YYYY_FOREST_BURN, sep = "")
   
   # sub-directories
   # sub_dir <- paste(proj, c("day_before",
@@ -141,7 +141,7 @@ fp_png_to_burn_dir_fun <- function(BURN_DIR, MODEL_RUN) {
   # move and rename to appropriate directory
   file.rename(rec_file, 
               paste(user_dir, 
-                    "/md/",
+                    "/outlooks/",
                     BURN_DIR,
                     "/",
                     MODEL_RUN,
@@ -154,7 +154,7 @@ fp_png_to_burn_dir_fun <- function(BURN_DIR, MODEL_RUN) {
 ##-------------
 
  
-render_smoke_report <- function(md_path, burn_name, contact_info, burn_date, lat, lon, model_run, run_id_url, mon_radius, drop_low_avg, drop_low_max){
+render_smoke_report <- function(outlook_path, burn_name, contact_info, burn_date, lat, lon, model_run, run_id_url, mon_radius, drop_low_avg, drop_low_max){
   # libraries needed
   require(rmarkdown)
   require(tidyverse)
@@ -167,7 +167,7 @@ render_smoke_report <- function(md_path, burn_name, contact_info, burn_date, lat
   
   # create html output
   render(input = "code/smoke_template_drop_level.Rmd",
-         output_dir = paste("md/", md_path, "/", model_run, sep = ""),
+         output_dir = paste("outlooks/", md_path, "/", model_run, sep = ""),
          output_file = paste(yearmonday,
                              "_",
                              smoke_report_title, ".html", sep = ""), 
@@ -178,7 +178,7 @@ render_smoke_report <- function(md_path, burn_name, contact_info, burn_date, lat
                        LON = lon,
                        MODEL_RUN = model_run,
                        RUN_ID_URL = run_id_url,
-                       MD_PATH = md_path,
+                       OUTLOOK_PATH = outlook_path,
                        MON_RADIUS = mon_radius,
                        DROP_LOW_AVG = drop_low_avg,
                        DROP_LOW_MAX = drop_low_max)) 
