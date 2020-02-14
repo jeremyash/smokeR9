@@ -68,7 +68,7 @@ fp_png_to_burn_dir_fun(burn_dir, model_run)
 
 # render smoke template for given burn
 suppressWarnings( 
-  render_smoke_report(md_path = burn_dir, # update with directory created above
+  render_smoke_report(outlook_path = burn_dir, # update with directory created above
                       burn_name = "Test", # name of fire
                       contact_info = "Jeremy Ash, jeremy.ash@usda.gov, 608-234-3300", # full contact info or website
                       burn_date = "January 31, 2020", # planned date
