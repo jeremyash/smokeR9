@@ -14,7 +14,7 @@ params:
   MODEL_RUN: ""
   BURN_DATE: ""
   RUN_ID_URL: ""
-  MD_PATH: ""
+  OUTLOOK_PATH: ""
   MON_RADIUS: ""
   DROP_LOW_AVG: ""
   DROP_LOW_MAX: ""
@@ -230,9 +230,9 @@ bsky_col <- read_csv("../raw_data/bsky_gray_color_ramp.csv",
 ## download and extract files
 ##-------------
 
-# smoke md directory
-md_smoke <- paste("../md/",
-                  params$MD_PATH,
+# smoke outlook directory
+outlook_smoke <- paste("../outlook/",
+                  params$OUTLOOK_PATH,
                   "/",
                   params$MODEL_RUN, sep = "")
 
@@ -242,11 +242,11 @@ smoke_disp_link <- paste(params$RUN_ID_URL,
                          "/output/smoke_dispersion.kmz", sep = "")
 
 # download smoke dispersion into a zip and regular version 
-curl_download(smoke_disp_link, destfile = paste(md_smoke,
+curl_download(smoke_disp_link, destfile = paste(outlook_smoke,
                                                 "/smoke_dispersion.kmz.zip",
                                                 sep = ""))
 
-curl_download(smoke_disp_link, destfile = paste(md_smoke,
+curl_download(smoke_disp_link, destfile = paste(outlook_smoke,
                                                 "/",
                                                 str_replace_all(Sys.Date(), "-", ""),
                                                 "_",
@@ -256,18 +256,18 @@ curl_download(smoke_disp_link, destfile = paste(md_smoke,
                                                 ".kmz", sep = ""))
 
 # create the directory to store files
-dir.create(paste(md_smoke,
+dir.create(paste(outlook_smoke,
                  "/smoke_dispersion_files", sep = ""))
 
 # unzip the file
-unzip(zipfile = paste(md_smoke,
+unzip(zipfile = paste(outlook_smoke,
                       "/smoke_dispersion.kmz.zip",
                       sep = ""),
-      exdir = paste(md_smoke,
+      exdir = paste(outlook_smoke,
                  "/smoke_dispersion_files", sep = ""))
 
 # get rid of zip file
-file.remove(paste(md_smoke,
+file.remove(paste(outlook_smoke,
                       "/smoke_dispersion.kmz.zip",
                       sep = ""))
 
@@ -276,7 +276,7 @@ grid_info_link <- paste(params$RUN_ID_URL,
                         "/output/grid_info.json", sep = "")
 
 # download grid info
-curl_download(grid_info_link, destfile = paste(md_smoke, 
+curl_download(grid_info_link, destfile = paste(outlook_smoke, 
                                                "/smoke_dispersion_files/grid_info.json", sep = ""))
 
 
@@ -285,7 +285,7 @@ burn_loc_link <- paste(params$RUN_ID_URL,
                        "/output/data/fire_locations.csv", sep = "")
 
 # download burn locations
-curl_download(burn_loc_link, destfile = paste(md_smoke,
+curl_download(burn_loc_link, destfile = paste(outlook_smoke,
                                               "/smoke_dispersion_files/burn_locations.csv", sep = ""))
   
 
@@ -295,22 +295,22 @@ curl_download(burn_loc_link, destfile = paste(md_smoke,
 ##-------------
 
 # burn ctds
-burn_loc <- read_csv(paste(md_smoke,
+burn_loc <- read_csv(paste(outlook_smoke,
                            "/smoke_dispersion_files/burn_locations.csv", sep = ""))
 
 # burn CRS
-burn_crs <- st_crs(read_sf(paste(md_smoke,
+burn_crs <- st_crs(read_sf(paste(outlook_smoke,
                                  "/smoke_dispersion_files/doc.kml", sep = "")))
 
 # read PNG files
-day_one_max <- readPNG(paste(md_smoke,
+day_one_max <- readPNG(paste(outlook_smoke,
                              "/smoke_dispersion_files/100m_daily_maximum_", 
                               burn_loc$date_time, 
                               "_UTC",
                               gsub(":", "", burn_loc$utc_offset), 
                              ".png", sep = ""))
 
-day_one_avg <- readPNG(paste(md_smoke, 
+day_one_avg <- readPNG(paste(outlook_smoke, 
                              "/smoke_dispersion_files/100m_daily_average_", 
                              burn_loc$date_time, 
                              "_UTC",
@@ -319,7 +319,7 @@ day_one_avg <- readPNG(paste(md_smoke,
 
 
 # pull extent from grid_info.json
-grid_info <- fromJSON(file=paste(md_smoke,
+grid_info <- fromJSON(file=paste(outlook_smoke,
                                  "/smoke_dispersion_files/grid_info.json", sep = ""))[[1]]
 
 
@@ -507,7 +507,7 @@ max_leaflet <- leaflet() %>%
 
 
 # remove smoke dispersion files from directory
-unlink(paste(md_smoke,
+unlink(paste(outlook_smoke,
                  "/smoke_dispersion_files", sep = ""), 
        recursive = TRUE)
 
@@ -593,7 +593,7 @@ crop <- function(im, left = 0, top = 0, right = 0, bottom = 0) {
 }
 
 
-paste(md_smoke, "/firepoker.PNG", sep = "") %>%
+paste(outlook_smoke, "/firepoker.PNG", sep = "") %>%
   image_read() %>%
   crop(left = 350, right = 350, bottom = 500, top = 2900)
 
