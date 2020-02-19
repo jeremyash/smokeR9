@@ -466,13 +466,13 @@ avg_leaflet <- leaflet() %>%
   addTiles() %>%
   addRasterImage(day_one_avg_ras, 
                  colors = avg_pal,
-                 opacity = 0.8) %>%
+                 opacity = 0.75) %>%
   addLegend(pal = avg_pal, 
             values = levels(day_one_avg_ras)[[1]][1]$ID,
             labFormat  = labelFormat(
               transform = function(x) {
                 levels(day_one_avg_ras)[[1]]$pm[which(levels(day_one_avg_ras)[[1]]$ID == x)]}),
-            opacity = 0.8, 
+            opacity = 0.75, 
             title = "PM2.5 (ug m^-3)") %>% 
   addMarkers(data = burn_icon, lng = ~x, lat = ~y,
              icon = list(
@@ -488,13 +488,13 @@ max_leaflet <- leaflet() %>%
   addTiles() %>%
   addRasterImage(day_one_max_ras, 
                  colors = max_pal,
-                 opacity = 0.8) %>%
+                 opacity = 0.75) %>%
   addLegend(pal = max_pal, 
             values = levels(day_one_max_ras)[[1]][1]$ID,
             labFormat  = labelFormat(
               transform = function(x) {
                 levels(day_one_max_ras)[[1]]$pm[which(levels(day_one_max_ras)[[1]]$ID == x)]}),
-            opacity = 0.8, 
+            opacity = 0.75, 
             title = "PM2.5 (ug m^-3)") %>% 
   addMarkers(data = burn_icon, lng = ~x, lat = ~y,
              icon = list(
