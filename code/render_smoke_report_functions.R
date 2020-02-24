@@ -222,7 +222,7 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
   
   
   # smoke md directory
-  md_smoke <- paste("outlooks/",
+  outlook_smoke <- paste("outlooks/",
                     YYYY_FOREST_BURN,
                     "/",
                     MODEL_RUN,
@@ -234,23 +234,23 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
                            "/output/smoke_dispersion.kmz", sep = "")
   
   # download smoke dispersion into a zip and regular version 
-  curl_download(smoke_disp_link, destfile = paste(md_smoke,
+  curl_download(smoke_disp_link, destfile = paste(outlook_smoke,
                                                   "/smoke_dispersion.kmz.zip",
                                                   sep = ""))
   
   # create the directory to store files
-  dir.create(paste(md_smoke,
+  dir.create(paste(outlook_smoke,
                    "/smoke_dispersion_files", sep = ""))
   
   # unzip the file
-  unzip(zipfile = paste(md_smoke,
+  unzip(zipfile = paste(outlook_smoke,
                         "/smoke_dispersion.kmz.zip",
                         sep = ""),
-        exdir = paste(md_smoke,
+        exdir = paste(outlook_smoke,
                       "/smoke_dispersion_files", sep = ""))
   
   # get rid of zip file
-  file.remove(paste(md_smoke,
+  file.remove(paste(outlook_smoke,
                     "/smoke_dispersion.kmz.zip",
                     sep = ""))
   
@@ -259,7 +259,7 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
                           "/output/grid_info.json", sep = "")
   
   # download grid info
-  curl_download(grid_info_link, destfile = paste(md_smoke, 
+  curl_download(grid_info_link, destfile = paste(outlook_smoke, 
                                                  "/smoke_dispersion_files/grid_info.json", sep = ""))
   
   
@@ -268,7 +268,7 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
                          "/output/data/fire_locations.csv", sep = "")
   
   # download burn locations
-  curl_download(burn_loc_link, destfile = paste(md_smoke,
+  curl_download(burn_loc_link, destfile = paste(outlook_smoke,
                                                 "/smoke_dispersion_files/burn_locations.csv", sep = ""))
   
   
@@ -278,15 +278,15 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
   ##-------------
   
   # burn ctds
-  burn_loc <- read_csv(paste(md_smoke,
+  burn_loc <- read_csv(paste(outlook_smoke,
                              "/smoke_dispersion_files/burn_locations.csv", sep = ""))
   
   # burn CRS
-  burn_crs <- st_crs(read_sf(paste(md_smoke,
+  burn_crs <- st_crs(read_sf(paste(outlook_smoke,
                                    "/smoke_dispersion_files/doc.kml", sep = "")))
   
   # read PNG files
-  day_one_avg <- readPNG(paste(md_smoke, 
+  day_one_avg <- readPNG(paste(outlook_smoke, 
                                "/smoke_dispersion_files/100m_daily_average_", 
                                burn_loc$date_time, 
                                "_UTC",
@@ -295,7 +295,7 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
   
   
   # pull extent from grid_info.json
-  grid_info <- fromJSON(file=paste(md_smoke,
+  grid_info <- fromJSON(file=paste(outlook_smoke,
                                    "/smoke_dispersion_files/grid_info.json", sep = ""))[[1]]
   
   
@@ -430,7 +430,7 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
              label = "The map shows the best estimate of the location\n of smoke that could be seen or otherwise easily noticed.",
              size = 6)
   
-  ggsave(filename = paste(md_smoke, 
+  ggsave(filename = paste(outlook_smoke, 
                           "/",
                           YYYY_FOREST_BURN,
                           "_",
@@ -441,6 +441,11 @@ public_img_fun <- function(YYYY_FOREST_BURN, MODEL_RUN, RUN_ID_URL, LAT_BUFFER, 
          height = 8,
          width = 8)
 
+  # remove smoke dispersion files from directory
+  unlink(paste(outlook_smoke,
+               "/smoke_dispersion_files", sep = ""), 
+         recursive = TRUE)
+  
 }
 
 
