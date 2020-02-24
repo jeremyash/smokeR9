@@ -17,6 +17,7 @@ source("code/render_smoke_report_functions.R")
 # create directory of burn files in format "YYYY_forest_burnname"
 burn_dir <- "YYYY_forest_burnname"
 
+
 # model run: # needs to be "day_before" or "day_of" 
 model_run <- "day_before"
 
@@ -67,7 +68,7 @@ fp_png_to_burn_dir_fun(burn_dir, model_run)
 
 # render smoke template for given burn
 suppressWarnings( 
-  render_smoke_report(outlook_path = burn_dir, # update with directory created above
+  render_smoke_report(outlook_path = burn_dir, # uses directory created above to store files
                       burn_name = "Test", # name of fire
                       contact_info = "Jeremy Ash, jeremy.ash@usda.gov, 608-234-3300", # full contact info or website
                       burn_date = "January 31, 2020", # planned date
@@ -80,6 +81,20 @@ suppressWarnings(
                       drop_low_max = TRUE # include low PM level in daily max (TRUE or FALSE)
                        ))
 
+
+##-------------
+## OPTIONAL. CREATE PUBLIC SMOKE OUTLOOK IMAGE, IF WANTED
+##-------------
+
+# generate public smoke outlook
+public_img_fun(YYYY_FOREST_BURN = burn_dir, # uses directory created above to store files
+               MODEL_RUN = model_run, # created above (day_before or day_of)
+               RUN_ID_URL = "https://playground-2.airfire.org/bluesky-web-output/15e2aec893afb9-dispersion/", # on BSky Dispersion Results webpage, click on 'Results Output' and copy full URL
+               LAT_BUFFER = 0.2, # how far to buffer image around fire coordinates (in deg Lat): increase/decrease depending on size of smoke trajectory
+               LON_BUFFER = 0.2, # how far to buffer image around fire coordinates (in deg Lon): increase/decrease depending on size of smoke trajectory
+               DROP_LOW_AVG = TRUE) # include low PM level in daily avg (TRUE or FALSE) 
+
+
 ##-------------
 ## 8. CLEAR ENVIRONMENT
 ##-------------
@@ -91,10 +106,6 @@ rm(list = ls())
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
-
-
-
-
 
 
 
