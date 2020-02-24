@@ -89,7 +89,7 @@ suppressWarnings(
 # generate public smoke outlook
 public_img_fun(YYYY_FOREST_BURN = burn_dir, # uses directory created above to store files
                MODEL_RUN = model_run, # created above (day_before or day_of)
-               RUN_ID_URL = "https://playground-2.airfire.org/bluesky-web-output/15e2aec893afb9-dispersion/", # on BSky Dispersion Results webpage, click on 'Results Output' and copy full URL
+               RUN_ID_URL = "https://playground-2.airfire.org/bluesky-web-output/...", # on BSky Dispersion Results webpage, click on 'Results Output' and copy full URL
                LAT_BUFFER = 0.2, # how far to buffer image around fire coordinates (in deg Lat): increase/decrease depending on size of smoke trajectory
                LON_BUFFER = 0.2, # how far to buffer image around fire coordinates (in deg Lon): increase/decrease depending on size of smoke trajectory
                DROP_LOW_AVG = TRUE) # include low PM level in daily avg (TRUE or FALSE) 
