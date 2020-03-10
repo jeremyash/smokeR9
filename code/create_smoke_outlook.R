@@ -75,7 +75,7 @@ suppressWarnings(
                       lat = burn_lat, # latitude of planned ignition
                       lon = burn_lon, # longitude of planned ignition
                       model_run = model_run, # created above (day_before or day_of)
-                      run_id_url = "https://playground-2.airfire.org/bluesky-web-output/...", # on BSky Dispersion Results webpage, click on 'Results Output' and copy full URL
+                      run_id_url = "...https://playground-2.airfire.org/bluesky-web-output/...", # on BSky Dispersion Results webpage, click on 'Results Output' and copy full URL
                       mon_radius = 50, # radius in km around the burn to pull AQI monitors. start with 50 and increase if needed 
                       drop_low_avg = FALSE, # include low PM level in daily avg (TRUE or FALSE)
                       drop_low_max = TRUE # include low PM level in daily max (TRUE or FALSE)
