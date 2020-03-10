@@ -18,6 +18,7 @@ params:
   MON_RADIUS: ""
   DROP_LOW_AVG: ""
   DROP_LOW_MAX: ""
+  IMG_CROP: ""
 ---
 
 ```{r setup, include=FALSE}
@@ -595,7 +596,7 @@ crop <- function(im, left = 0, top = 0, right = 0, bottom = 0) {
 
 paste(outlook_smoke, "/firepoker.PNG", sep = "") %>%
   image_read() %>%
-  crop(left = 350, right = 350, bottom = 500, top = 2900)
+  crop(left = 350, right = 350, bottom = 500, top = params$IMG_CROP)
 
 
 
